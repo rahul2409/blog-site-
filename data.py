@@ -24,6 +24,6 @@ def Articles():
             'likes':0,
             'date-of-creation':'24-09-2018'
         }
-    ];
-    return articles;
+    ]
+    return articles
     
