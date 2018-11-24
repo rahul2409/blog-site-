@@ -3,10 +3,16 @@
 {% block body %}
 {% for article in articles %}
 <div class="container blog_class" id ="blog1">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta consectetur itaque inventore, deleniti hic dolorem quisquam voluptate numquam minus iusto quibusdam suscipit error provident molestiae voluptatibus! Nemo rerum beatae eos amet corrupti reprehenderit repellat sunt consequuntur nesciunt debitis cupiditate nihil ratione enim, odio facere. Officia ipsam amet sunt voluptates iste cumque, assumenda explicabo sequi voluptatum aut culpa nostrum, adipisci, ullam fuga sed asperiores non molestiae? Labore, iusto! Eligendi expedita eaque consequuntur amet earum adipisci nobis iusto aspernatur dolore dolores numquam sunt dignissimos accusantium est cupiditate accusamus harum illum, neque fuga blanditiis! Quisquam esse possimus, ipsum inventore perferendis voluptatibus aperiam maiores?<br>
+        <h2>
+                {{article.title}}
+        </h2>
+        <p class="blog">
+                {{article.content}}
+        </p>
+        <br>
         <button class="btn btn-primary">like</button>
         <button class="btn btn-primary">share</button>
         <button class="btn btn-danger">report</button>
 </div>
-{% %}   
+{% endfor %}   
 {% endblock %}

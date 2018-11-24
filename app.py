@@ -16,7 +16,7 @@ def about():
 
 @app.route('/posts')
 def posts():
-	return render_template('posts.html', articles)
+	return render_template('posts.html', articles=Articles())
 
 if __name__ == '__main__' :
 	app.run(debug=True)

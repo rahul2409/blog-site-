@@ -5,20 +5,8 @@
 		MyFlaskApp 
 	</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<style>
-		.blog_class{
-			padding:5% ;
-			border: 4px solid #d4d4d4;
-			margin-bottom: 5%;
-			margin-top:5%;
-			box-sizing: border-box;
-		}
-		.blog_class button{
-			position: relative;
-			left :80%;
-			margin-right: 2%;
-		}
-	</style>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	
 </head>
 <body>
 	{% include 'includes/_navbar.html' %}
