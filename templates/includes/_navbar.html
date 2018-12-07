@@ -5,7 +5,11 @@
         <a class="p-2 text-dark" href="/about">about us </a>
         <a class="p-2 text-dark" href="/posts">posts</a>
         <a class="p-2 text-dark" href="/profile">profile</a>
+        {% if session.logged_in %}
+        <a class="btn btn-outline-primary" href="/logout">Logout</a>
+        {% else %}
         <a class="btn btn-outline-primary" href="/login">Sign up</a>
         <a class="btn btn-outline-primary" href="/register">Register</a>
+        {% endif %}
       </nav>
 </div>
