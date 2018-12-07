@@ -78,7 +78,7 @@ def login():
 		cursor = mysql.connection.cursor()
 
 		#fire query
-		result = cursor.execute("select * from users where username =%s ",(username))
+		result = cursor.execute("select * from users where username =%s ",[username])
 
 		#check the result 
 		if (result > 0):
@@ -87,12 +87,25 @@ def login():
 
 			#comparing the passwords 
 			if (sha256_crypt.verify(candidate_password,password)):
-				app.logger.info('password matched ')
+				session['logged_in']=True
+				session['username'] = username 
+
+				flash('you are now logged in ','success')
+				return redirect(url_for('dashboard'))
 			else :
-				app.logger.info('password not matched ')
+				error = 'Invalid Login '
+				return render_template('login.html',error=error)
+			#close the connection 
+			cursor.close()
 		else :
-			app.logger.info('no username')
+			error = 'User not found ! '
+			return render_template('login.html',error=error)
 	return render_template('login.html')
+
+@app.route('/dashboard')
+def dashboard ():
+	return render_template('dashboard.html')
+
 
 if __name__ == '__main__' :
 	app.secret_key='mrrobo123'
