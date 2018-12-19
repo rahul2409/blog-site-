@@ -1,5 +1,5 @@
 from flask import Flask , render_template, flash, redirect, url_for, session, logging, request 
-from data import Articles
+#from data import Articles
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt 
@@ -20,7 +20,7 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
 
-articles = Articles()
+#articles = Articles()
 
 
 @app.route('/')
@@ -33,7 +33,21 @@ def about():
 
 @app.route('/posts')
 def posts():
-	return render_template('posts.html', articles=Articles())
+	# create a cursor 
+	cur = mysql.connection.cursor()
+
+	#get articles 
+	result = cur.execute("Select * from acrticles")
+
+	#fecth all 
+	arcticles = cur.fetchall()
+
+	if result>0:
+		return render_template('posts.html',arcticles=arcticles)
+	else :
+		message='no available articles'
+		return render_template('posts.html',message=message)
+	return render_template('posts.html')
 
 class Registration(Form):
 	name =StringField('Name', [validators.Length(min=1,max=50)])

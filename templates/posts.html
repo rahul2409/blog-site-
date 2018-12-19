@@ -1,13 +1,16 @@
 {% extends 'launch.html' %}
 
 {% block body %}
-{% for article in articles %}
+{% for article in arcticles %}
 <div class="container blog_class" id ="blog1">
         <h2>
                 {{article.title}}
         </h2>
+        <p>
+                {{article.author}}
+        </p>
         <p class="blog">
-                {{article.content}}
+                {{article.body}}
         </p>
         <br>
         <button class="btn btn-primary">like</button>
