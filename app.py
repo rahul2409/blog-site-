@@ -114,6 +114,7 @@ def is_logged_out(f):
 	return wrap
 	
 @app.route('/logout')
+@is_logged_out
 def logout():
 	session.clear()
 	flash('you are now logged out','success')
@@ -122,9 +123,48 @@ def logout():
 @app.route('/dashboard')
 @is_logged_out
 def dashboard ():
+	# create a cursor 
+	cur = mysql.connection.cursor()
+
+	#get articles 
+	result = cur.execute("Select * from acrticles where author = '%s'"% session['username'])
+
+	#fecth all 
+	arcticles = cur.fetchall()
+
+	if result>0:
+		return render_template('dashboard.html',arcticles=arcticles)
+	else :
+		message='no available articles'
+		return render_template('dashboard.html',message=message)
 	return render_template('dashboard.html')
 
+class ArticleForm (Form):
+	title = StringField('title', [validators.Length(min=1,max=200)])
+	body = StringField('body')
+	
+@app.route('/add_article', methods =['GET','POST'])
+@is_logged_out
+def add_articles():
+	form = ArticleForm(request.form)
+	if request.method == 'POST' and form.validate():
+		title = form.title.data
+		body  = form.body.data
 
+
+		cur= mysql.connection.cursor()
+
+		cur.execute("insert into acrticles (title,body,author) values(%s,%s,%s)",(title,body,session['username']))
+
+		mysql.connection.commit()
+
+		cur.close()
+
+		flash('Article created successfully ','success')
+
+		return redirect(url_for('dashboard'))
+	return render_template('add_article.html',form=form)
+	
 if __name__ == '__main__' :
 	app.secret_key='mrrobo123'
 	app.run(debug=True)
