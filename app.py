@@ -141,7 +141,7 @@ def dashboard ():
 
 class ArticleForm (Form):
 	title = StringField('title', [validators.Length(min=1,max=200)])
-	body = StringField('body')
+	body = StringField('body',[validators.Length(min=30)])
 	
 @app.route('/add_article', methods =['GET','POST'])
 @is_logged_out
